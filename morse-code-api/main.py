@@ -13,7 +13,7 @@ def sign_in(username, password):
     return requests.request('POST', AUTH_API_URL, json=data)
 
 
-def post_results(first_name, last_name, email, result, github_url):
+def post_results(first_name, last_name, email, result, github_url, token):
     data = {
         'firstName': first_name,
         'lastName': last_name,
@@ -21,7 +21,8 @@ def post_results(first_name, last_name, email, result, github_url):
         'result': result,
         'githubUrl': github_url
     }
-    return requests.request('POST', RESULT_API_URL, json=data)
+    headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+    return requests.request('POST', RESULT_API_URL, headers=headers, json=data)
 
 
 if __name__ == '__main__':
@@ -36,5 +37,5 @@ if __name__ == '__main__':
     exp_date = jwt_decoded['exp']
     text_to_encode = f"Vega IT Omega : {exp_date}"
     encoded_text = MorseCode.encode(text_to_encode)
-    results_resp = post_results("Anes", "Hujevic", "anes1996_h@hotmail.com", encoded_text, "")
-    print(results_resp.json()["message"])
+    results_resp = post_results("Anes", "Hujevic", "anes1996_h@hotmail.com", encoded_text, "https://github.com/aneshujevic/morse_api", jwt_token)
+    print(results_resp.text, results_resp.status_code)

@@ -12,8 +12,8 @@ class MorseCode:
         '2': '..---', '3': '...--', '4': '....-',
         '5': '.....', '6': '-....', '7': '--...',
         '8': '---..', '9': '----.', '0': '-----',
-        ',': '--..--', '.': '.-.-.-', '?': '..--..',
-        '-': '-....-', '(': '-.--.', ')': '-.--.-'
+        ':': '---...', ',': '--..--', '.': '.-.-.-',
+        '?': '..--..', '-': '-....-', '(': '-.--.', ')': '-.--.-'
     }
     MORSE_TO_ENG_DICT = {val: key for key, val in ENG_TO_MORSE_DICT.items()}
 
@@ -24,7 +24,7 @@ class MorseCode:
             if ch == ' ':
                 output_text_buffer.append('/')
             else:
-                output_text_buffer.append(MorseCode.ENG_TO_MORSE_DICT[ch])
+                output_text_buffer.append(MorseCode.ENG_TO_MORSE_DICT[ch.upper()])
 
         return ' '.join(output_text_buffer)
 
